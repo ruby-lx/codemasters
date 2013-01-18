@@ -13,3 +13,11 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# IDE
+.idea
+*.iml
+*.ipr
+
+# MacOS
+.DS_Store
