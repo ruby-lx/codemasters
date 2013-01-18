@@ -1,0 +1,6 @@
+<div>
+    <p><span class="label"><%= @user.title %></span> <%= @user.name %></p>
+    <p><span class="label">Location</span> <%= @user.location %></p>
+    <p><span class="label">Email</span> <%= @user.email %></p>
+    <%= link_to 'Edit', edit_user_registration_path(current_user) %>
+</div>

@@ -13,3 +13,8 @@ Feature: User registration as either master or apprentice
       And I choose "I'm a master"
       And I click the "Sign up" button
       Then I should see the message "Welcome! You have signed up successfully."
+
+    Scenario: Logged in user navigates to his profile
+      Given I am a new, authenticated user
+      And I click the "profile" link
+      Then I should see my profile

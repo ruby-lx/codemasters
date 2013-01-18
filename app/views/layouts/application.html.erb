@@ -10,6 +10,7 @@
   <% if user_signed_in? %>
     <ul>
       <li><%= link_to "logout", destroy_user_session_path, method: 'delete' %></li>
+      <li><%= link_to "profile", user_path(current_user) %></li>
     </ul>
   <% end %>
 

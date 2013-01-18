@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
 
   validates_presence_of :name, :location
   validates_inclusion_of :master, in: [true, false]
+
+  def title
+    master? ? "Master" : "Apprentice"
+  end
 end
