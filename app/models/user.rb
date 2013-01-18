@@ -10,5 +10,5 @@ class User < ActiveRecord::Base
   attr_accessible :name, :location, :master
 
   validates_presence_of :name, :location
-  validates_presence_of :master
+  validates_inclusion_of :master, in: [true, false]
 end

@@ -19,8 +19,10 @@
   <%= f.password_field :password_confirmation %></div>
 
   <div>
-    <%= f.radio_button :master, true %><span>I'm a master</span>
-    <%= f.radio_button :master, false %><span>I'm an apprentice</span>
+    <%= f.radio_button :master, true %>
+    <%= f.label :master_true, "I'm a master" %>
+    <%= f.radio_button :master, false %>
+    <%= f.label :master_false, "I'm an apprentice" %>
   </div>
 
   <div><%= f.submit "Sign up" %></div>
