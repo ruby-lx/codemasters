@@ -1,2 +1,18 @@
-<h1>User#index</h1>
-<p>Find me in app/views/user/index.html.erb</p>
+<h2>Masters</h2>
+<table>
+    <thead>
+        <th>Name</th>
+        <th>Location</th>
+        <th>Skills</th>
+    </thead>
+    <tbody>
+        <% @users.each do |user| %>
+        <tr>
+          <td><%= user.name %></td>
+          <td><%= user.location %></td>
+          <td><%= user.skills.map(&:description).join(", ") %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+

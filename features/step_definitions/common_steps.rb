@@ -42,3 +42,17 @@ end
 Then /^I should see my profile$/ do
   [:name, :email, :location].each { |attr| page.should have_content(@user[attr]) }
 end
+
+Given /^that the following users already exist$/ do |table|
+  password = '123123123'
+  @users = []
+
+  table.hashes.each do |row|
+    row[:skills] = row[:skills].split(",").map { |skill| Skill.find_or_create_by_description(skill.sub("\s","")) }
+    @users << User.create(row.merge(password: password, password_confirmation: password))
+  end
+end
+
+Then /^I should see a list of those users$/ do
+  [:name, :location, :skills].each { |attr| page.should have_content(@user[attr]) }
+end

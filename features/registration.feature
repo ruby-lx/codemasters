@@ -18,3 +18,10 @@ Feature: User registration as either master or apprentice
       Given I am a new, authenticated user
       And I click the "profile" link
       Then I should see my profile
+
+    Scenario: Logged in user can see list of other users
+      Given that the following users already exist
+        | name | email               | location | skills     |
+        | rui  | rui.salgado@cake.ck | Lisbon   | Java, ruby |
+      And I am a new, authenticated user
+      Then I should see a list of those users
