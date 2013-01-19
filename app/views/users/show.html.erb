@@ -4,3 +4,10 @@
     <p><span class="label">Email</span> <%= @user.email %></p>
     <%= link_to 'Edit', edit_user_registration_path(current_user) %>
 </div>
+
+<h2>Skills</h2>
+<ul>
+    <% @user.skills.each do |skill| %>
+    <li><%= skill %> <%= button_to 'remove', user_skill_path(@user, skill), :confirm => "Are you sure?" , :method => :delete %></li>
+    <% end %>
+</ul>

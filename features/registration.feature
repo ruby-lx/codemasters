@@ -25,3 +25,15 @@ Feature: User registration as either master or apprentice
         | rui  | rui.salgado@cake.ck | Lisbon   | Java, ruby |
       And I am a new, authenticated user
       Then I should see a list of those users
+
+    @javascript
+    Scenario: Remove a skill from a user
+      Given that the following users already exist
+        | name | email               | location | skills     |
+        | rui  | rui.salgado@cake.ck | Lisbon   | Java, ruby |
+      And I am a new, authenticated user
+      And I visit the profile for the user "rui.salgado@cake.ck"
+      And I click the "remove" button next to skill "Java"
+      And I confirm
+      Then I visit the profile for the user "rui.salgado@cake.ck"
+      And I should not see "Java"

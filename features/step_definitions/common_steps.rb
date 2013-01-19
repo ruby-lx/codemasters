@@ -48,11 +48,37 @@ Given /^that the following users already exist$/ do |table|
   @users = []
 
   table.hashes.each do |row|
-    row[:skills] = row[:skills].split(",").map { |skill| Skill.find_or_create_by_description(skill.sub("\s","")) }
-    @users << User.create(row.merge(password: password, password_confirmation: password))
+    skills = row[:skills].split(",").map { |skill| Skill.find_or_create_by_description(skill.sub("\s","")) }
+    row.delete("skills")
+
+    user = User.new row.merge(password: password, password_confirmation: password, master: true)
+    user.skills << skills
+    user.save
+
+    @users << user
   end
 end
 
 Then /^I should see a list of those users$/ do
-  [:name, :location, :skills].each { |attr| page.should have_content(@user[attr]) }
+  [:name, :location, :skills].each do |attr|
+    @users.each { |user| page.should have_content(user[attr]) }
+  end
+end
+
+Given /^I visit the profile for the user "(.*?)"$/ do |email|
+  visit user_path(User.find_by_email(email))
+end
+
+Given /^I click the "(.*?)" button next to skill "(.*?)"$/ do |button, search_term|
+  within(:xpath, "//li[contains(string(),'#{search_term}')]") do
+    click_button button
+  end
+end
+
+Given /^I confirm$/ do
+  page.driver.browser.switch_to.alert.accept
+end
+
+Then /^I should not see "(.*?)"$/ do |content|
+  page.should_not have_content(content)
 end
