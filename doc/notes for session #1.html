@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/><meta name="exporter-version" content="Evernote Mac 5.0.5 (400808)"/><meta name="keywords" content="rubylx"/><meta name="altitude" content="106.4733352661133"/><meta name="author" content="Rui Salgado"/><meta name="created" content="2013-01-18 12:19:37 +0000"/><meta name="latitude" content="38.74814686203335"/><meta name="longitude" content="-9.210174495042308"/><meta name="updated" content="2013-02-02 21:13:32 +0000"/><title>notes for session #1</title></head><body style="word-wrap: break-word; -webkit-nbsp-mode: space; -webkit-line-break: after-white-space;">
+<div><b>#1 setup project</b></div>
+<div><br/></div>
+rvm use --create 1.9.3@codemasters
+<div><br/></div>
+<div>gem install rails</div>
+<div>rails new codemasters -T (to skip test::unit since we're using rspec)</div>
+<div><br/></div>
+<div>cd codemasters</div>
+<div>rvm --rvmrc 1.9.3@codemasters</div>
+<div>cd ..</div>
+<div>cd -</div>
+<div><br/></div>
+<div>git init .</div>
+<div>git add .</div>
+<div>git ci</div>
+<div><br/></div>
+<div><b>#2 gitignore IDEA and OSX files</b></div>
+<div><b><br/></b></div>
+<div><b>#3 configure database</b></div>
+<div><b><br/></b></div>
+<div>add mysql2 to gemfile<br/></div>
+<div>bundle install</div>
+<div><br/></div>
+<div>be rake db:create</div>
+<div><br/></div>
+<div><b>#4 setup devise</b><br/></div>
+<div><b><br/></b></div>
+<div>add devise do gemfile<b><br/></b></div>
+<div>bundle install</div>
+<div><br/></div>
+<div>rails g devise:install</div>
+<div><br/></div>
+<div>follow instructions</div>
+<div><br/></div>
+<div>rails g controller home index --skip-stylesheets</div>
+<div><br/></div>
+<div>rm public/index.html</div>
+<div><br/></div>
+<div>rails g devise user name:string location:string master:boolean</div>
+<div><br/></div>
+<div>be rake db:migrate</div>
+<div><br/></div>
+<div>rails g devise:views</div>
+<div><br/></div>
+<div>add some validations to user model, i18n and a logout button</div>
+<div><br/></div>
+<div><b>#5 cucumber my way out of master registration and listing the user profile</b></div>
+<div><br/></div>
+<div>add to Gemfile:</div>
+<div><br/></div>
+<div>group :development, :test do<br/></div>
+<div>  gem 'rspec-rails'</div>
+<div>  gem 'cucumber-rails'</div>
+<div>  gem 'database_cleaner'</div>
+<div>  gem 'launchy'</div>
+<div>end</div>
+<div><br/></div>
+<div>bundle install</div>
+<div>rails g cucumber:install</div>
+<div><b><br/></b></div>
+<div><b>#6 cucumber my way out of adding skills to the master</b><b><br/></b></div>
+<div><b><br/></b></div>
+<div>be rails g controller user index</div>
+<div>be rails g model Skill description:string</div>
+<div>be rails g migration CreateSkillsUsersJoinTable</div>
+<div>be rake db:migrate</div>
+<div>RAILS_ENV=test be rake db:migrate</div>
+<div><br/></div>
+<div style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+class CreateSkillsUsersJoinTable &lt; ActiveRecord::Migration</div>
+<div style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+ def self.up</div>
+<div style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+ create_table :skills_users, :id => false do |t|</div>
+<div style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+ t.integer :skill_id</div>
+<div style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+ t.integer :user_id</div>
+<div style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+ end</div>
+<div style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+ end</div>
+<div style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+</div>
+<div style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+ def self.down</div>
+<div style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+ drop_table :skills_users</div>
+<div style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+ end </div>
+<div><span style="background-color: rgb(221, 255, 221); color: rgb(0, 136, 0); font-family: Monaco; white-space: pre;">+end</span><br/></div>
+<div><br/></div>
+<div><br/></div>
+<div><b><br/></b></div>
+<div><b>#7 cucumber my way out of apprentice registration</b></div>
+<div><br/></div>
+</body></html>
